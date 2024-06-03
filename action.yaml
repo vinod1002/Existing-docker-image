@@ -13,14 +13,14 @@ outputs:
 runs:
   using: 'docker'
   image: 'docker://alpine:3.17'
-  entrypoint: /entrypoint.sh
+  entrypoint: ./entrypoint.sh
   args:
   - -c
   - |
     set -e
     
     # Copy entrypoint.sh from the Docker image repository to the current directory inside the container
-    cp /entrypoint.sh .
+    cp ./entrypoint.sh ./
     
     # Make entrypoint.sh executable
     chmod +x ./entrypoint.sh
