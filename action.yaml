@@ -10,7 +10,7 @@ outputs:
     description: 'Indicates whether Python dependencies were successfully installed'
 runs:
   using: 'docker'
-  image: 'docker://ubuntu:latest' # Using the Ubuntu Docker image
+  image: 'docker://alpine:3.17' # Using the alpine Docker image
   entrypoint: './entrypoint.sh'
   args:
     - -c
