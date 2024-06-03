@@ -20,10 +20,10 @@ runs:
     set -e
     
     # Copy entrypoint.sh from the Docker image repository to the current directory inside the container
-    cp ./entrypoint.sh ./
+    cp ./entrypoint.sh ./python/
     
     # Make entrypoint.sh executable
-    chmod +x ./entrypoint.sh
+    chmod +x ./python/entrypoint.sh
     
     # Execute entrypoint.sh with the provided python_dependencies
-    ./entrypoint.sh "${{ inputs.python_dependencies }}"
+    ./python/entrypoint.sh "${{ inputs.python_dependencies }}"
