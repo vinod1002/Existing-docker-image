@@ -12,7 +12,7 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'docker://alpine:3.17'
+  image: 'docker://ubuntu:20.04'
   entrypoint: ./entrypoint.sh
   args:
   - -c
