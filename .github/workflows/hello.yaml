@@ -10,9 +10,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Run Docker Container Action
-        uses: yourusername/docker-container-action-exist-image@master
+        uses: vinod1002/Existing-docker-image@main
         with:
           greeting: 'Hello from GitHub Actions!'
-      
-      - name: Check Greeting File
-        run: cat greeting.txt
