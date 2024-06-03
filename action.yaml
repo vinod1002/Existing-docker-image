@@ -1,29 +1,19 @@
-name: 'Docker Container Action with Existing Image'
-description: 'A GitHub Action that uses an existing Docker image and installs Python dependencies'
+name: 'Simple Docker Container Action'
+description: 'An action that uses an existing Docker image'
 
 inputs:
-  python_dependencies:
-    description: 'Python dependencies to install'
+  greeting:
+    description: 'A greeting message'
     required: true
+    default: 'Hello, World!'
 outputs:
-  python_dependencies_installed:
-    description: 'Indicates whether Python dependencies were successfully installed'
+  result:
+    description: 'The processed greeting'
 runs:
   using: 'docker'
-  image: 'docker://ubuntu:latest' # Using the Ubuntu Docker image
-  entrypoint: '/python/entrypoint.sh' # Corrected path to the entrypoint script
+  image: 'alpine:latest'  # This uses the official Alpine Linux image as an example
+  entrypoint: '/bin/sh'
   args:
-    - -c
-    - |
-      set -e
-      echo $GITHUB_WORKSPACE
-      cd $GITHUB_WORKSPACE && ls
-      
-      # Copy entrypoint.sh from the GitHub repository to /python/entrypoint.sh inside the container
-      cp $GITHUB_WORKSPACE/entrypoint.sh /python/entrypoint.sh # Corrected space
-      
-      # Make entrypoint.sh executable
-      chmod +x /python/entrypoint.sh
-      
-      # Execute entrypoint.sh with the provided python_dependencies
-      /python/entrypoint.sh "${{ inputs.python_dependencies }}"
+    - '-c'
+    - 'echo "${{ inputs.greeting }}" > /github/workspace/greeting.txt'
+
