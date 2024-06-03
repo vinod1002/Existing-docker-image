@@ -12,4 +12,4 @@ jobs:
       - name: Run Docker Container Action
         uses: vinod1002/Existing-docker-image@main
         with:
-          greeting: 'Hello from GitHub Actions!'
+           python-dependencies: 'pytest'
