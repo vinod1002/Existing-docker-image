@@ -2,6 +2,15 @@
 
 set -e
 
+# Create /python directory if it doesn't exist
+mkdir -p /python
+
+# Copy entrypoint.sh from the GitHub repository to /python/entrypoint.sh inside the container
+cp $GITHUB_WORKSPACE/entrypoint.sh /python/entrypoint.sh
+
+# Make entrypoint.sh executable
+chmod +x /python/entrypoint.sh
+
 # Install Python dependencies using apt
 apt-get update && apt-get install -y python3 py3-pip # Install Python 3 and pip for Python 3
 
