@@ -20,7 +20,7 @@ runs:
       ls
       
       # Copy entrypoint.sh from the GitHub repository to /entrypoint.sh inside the container
-      cp entrypoint.sh /entrypoint.sh
+      cp /github/workspace/entrypoint.sh /entrypoint.sh
       
       # Make entrypoint.sh executable
       chmod +x /entrypoint.sh
