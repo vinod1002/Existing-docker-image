@@ -15,17 +15,15 @@ runs:
   image: 'docker://alpine:3.17'
   entrypoint: /entrypoint.sh
   args:
-    - -c
-    - |
-      set -e
-      echo $GITHUB_WORKSPACE
-      cd $GITHUB_WORKSPACE && ls
-      
-      # Copy entrypoint.sh from the GitHub repository to /entrypoint.sh inside the container
-      cp $GITHUB_WORKSPACE/entrypoint.sh /entrypoint.sh
-      
-      # Make entrypoint.sh executable
-      chmod +x /entrypoint.sh
-      
-      # Execute entrypoint.sh with the provided python_dependencies
-      /entrypoint.sh "${{ inputs.python_dependencies }}"
+  - -c
+  - |
+    set -e
+    
+    # Copy entrypoint.sh from the Docker image repository to the current directory inside the container
+    cp /entrypoint.sh .
+    
+    # Make entrypoint.sh executable
+    chmod +x ./entrypoint.sh
+    
+    # Execute entrypoint.sh with the provided python_dependencies
+    ./entrypoint.sh "${{ inputs.python_dependencies }}"
