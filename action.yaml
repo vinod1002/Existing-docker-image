@@ -5,25 +5,31 @@ inputs:
   python_dependencies:
     description: 'Python dependencies to install'
     required: true
+
 outputs:
   python_dependencies_installed:
     description: 'Indicates whether Python dependencies were successfully installed'
+
 runs:
   using: 'docker'
   image: 'docker://ubuntu:latest' # Using the Ubuntu Docker image
-  entrypoint: '/entrypoint.sh'
+  entrypoint: '/bin/bash'
   args:
     - -c
     - |
       set -e
       
-      ls
+      # Debugging: List contents of root directory
+      ls -l /
       
       # Copy entrypoint.sh from the GitHub repository to /entrypoint.sh inside the container
       cp /github/workspace/entrypoint.sh /entrypoint.sh
       
-      # Make entrypoint.sh executable
+      # Ensure entrypoint.sh has executable permissions
       chmod +x /entrypoint.sh
+      
+      # Debugging: Print entrypoint.sh content
+      cat /entrypoint.sh
       
       # Execute entrypoint.sh with the provided python_dependencies
       /entrypoint.sh "${{ inputs.python_dependencies }}"
