@@ -1,5 +1,9 @@
 name: 'Hello World'
 description: 'Prints a hello world message'
+inputs:
+  name:
+    description: 'The name to include in the hello message'
+    required: true
 runs:
   using: 'docker'
   image: 'docker://alpine:latest'
@@ -8,4 +12,4 @@ runs:
     - -c
     - |
       chmod +x /script.sh
-      /script.sh
+      /script.sh $INPUT_NAME
