@@ -12,5 +12,24 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'docker://ubuntu:20.04' # Using the Ubuntu Docker image
-  entrypoint: '/entrypoint.sh'
+  image: 'ubuntu:latest' # Using the Ubuntu Docker image
+  entrypoint: '/bin/bash'
+  args:
+    - -c
+    - |
+      set -e
+      
+      # Debugging: List contents of root directory
+      ls -l /
+      
+      # Copy entrypoint.sh from the GitHub repository to /entrypoint.sh inside the container
+      cp /entrypoint.sh /entrypoint.sh
+      
+      # Ensure entrypoint.sh has executable permissions
+      chmod +x /entrypoint.sh
+      
+      # Debugging: Print entrypoint.sh content
+      cat /entrypoint.sh
+      
+      # Execute entrypoint.sh with the provided python_dependencies
+      /entrypoint.sh "${{ inputs.python_dependencies }}"
