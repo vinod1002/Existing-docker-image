@@ -1,4 +1,4 @@
-name: Test Docker Container Action
+name: Run Custom Docker Action
 
 on:
   workflow_dispatch:
@@ -7,9 +7,10 @@ jobs:
   test:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Run Docker Container Action
-        uses: vinod1002/Existing-docker-image@main
-        with:
-           python_dependencies: 'pytest'
+    - name: Run custom Docker action
+      uses: ./
+      with:
+        python_dependencies: 'pytest requests'
