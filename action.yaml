@@ -1,7 +1,8 @@
-name: 'My Docker Action'
-description: 'An example GitHub Action using a public Docker image as the runtime environment'
+name: 'Custom Action'
+description: 'Run custom action script in a Docker container'
+
 runs:
   using: 'docker'
   image: 'docker://docker:latest'
   args:
-    - ${{ github.workspace }}
+    - './custom_action.sh'
