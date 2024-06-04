@@ -1,35 +1,19 @@
-name: 'Docker Container Action with Existing Image'
-description: 'A GitHub Action that uses an existing Docker image and installs Python dependencies'
+name: Test Docker Action
 
-inputs:
-  python_dependencies:
-    description: 'Python dependencies to install'
-    required: true
+on: [push]
 
-outputs:
-  python_dependencies_installed:
-    description: 'Indicates whether Python dependencies were successfully installed'
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-runs:
-  using: 'docker'
-  image: 'ubuntu:latest' # Using the Ubuntu Docker image
-  entrypoint: '/bin/bash'
-  args:
-    - -c
-    - |
-      set -e
-      
-      # Debugging: List contents of root directory
-      ls -l /
-      
-      # Copy entrypoint.sh from the GitHub repository to /entrypoint.sh inside the container
-      cp /entrypoint.sh /entrypoint.sh
-      
-      # Ensure entrypoint.sh has executable permissions
-      chmod +x /entrypoint.sh
-      
-      # Debugging: Print entrypoint.sh content
-      cat /entrypoint.sh
-      
-      # Execute entrypoint.sh with the provided python_dependencies
-      /entrypoint.sh "${{ inputs.python_dependencies }}"
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Run combined shell script
+      run: |
+        chmod +x entrypoint.sh
+        ./entrypoint.sh
