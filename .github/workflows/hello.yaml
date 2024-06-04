@@ -1,16 +1,14 @@
-name: Run Custom Docker Action
+name: Custom Action Workflow
 
-on:
-  workflow_dispatch:
+on: [push]
 
 jobs:
-  test:
+  custom_action_job:
     runs-on: self-hosted
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Run custom Docker action
-      uses: ./
-      with:
-        python_dependencies: 'pytest requests'
+    - name: Run Custom Action
+      run: |
+        docker run -v $(pwd):/workspace -w /workspace your_selected_image:tag sh -c "./custom_action.sh"
