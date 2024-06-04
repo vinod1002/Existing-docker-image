@@ -11,4 +11,4 @@ jobs:
 
     - name: Run Custom Action
       run: |
-        docker run -v $(pwd):/workspace -w /workspace your_selected_image:tag sh -c "./custom_action.sh"
+        docker run -v $(pwd):/workspace -w /workspace docker:latest sh -c "./custom_action.sh"
