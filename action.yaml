@@ -13,32 +13,4 @@ outputs:
 runs:
   using: 'docker'
   image: 'docker://ubuntu:20.04' # Using the Ubuntu Docker image
-  entrypoint: '/bin/bash'
-  args:
-    - -c
-    - |
-      set -e
-
-      # Check if a proxy is set, if not, configure to bypass proxy settings
-      if ! grep -q "http_proxy" /etc/environment; then
-        echo "Bypassing proxy settings"
-        unset http_proxy https_proxy no_proxy
-      fi
-      
-      # Update package list and install Python and pip3
-      apt-get update && apt-get install -y python3 python3-pip
-
-      # Debugging: List contents of root directory
-      ls -l /
-      
-      # Copy entrypoint.sh from the GitHub repository to /entrypoint.sh inside the container
-      cp /github/workspace/entrypoint.sh /entrypoint.sh
-      
-      # Ensure entrypoint.sh has executable permissions
-      chmod +x /entrypoint.sh
-      
-      # Debugging: Print entrypoint.sh content
-      cat /entrypoint.sh
-      
-      # Execute entrypoint.sh with the provided python_dependencies
-      /entrypoint.sh "${{ inputs.python_dependencies }}"
+  entrypoint: '/entrypoint.sh'
