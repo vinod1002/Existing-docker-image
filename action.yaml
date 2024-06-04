@@ -1,20 +1,7 @@
-name: Test Docker Action
-
-on:
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: self-hosted
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-
-    - name: Run combined shell script
-      run: |
-        chmod +x entrypoint.sh
-        ./entrypoint.sh
+name: 'My Docker Action'
+description: 'An example GitHub Action using a public Docker image as the runtime environment'
+runs:
+  using: 'docker'
+  image: 'docker://docker:latest'
+  args:
+    - ${{ github.workspace }}
