@@ -4,7 +4,7 @@
 IMAGE_NAME="docker:latest"
 CONTAINER_NAME="my-container"
 SCRIPT_CONTENT="#!/bin/sh\n echo 'Hello, Docker!'"
-SCRIPT_NAME="entrypoint.sh"
+SCRIPT_NAME="entrypoint1.sh"
 DESTINATION_PATH="/usr/src/app/$SCRIPT_NAME"
 
 # Create the script
