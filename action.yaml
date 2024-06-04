@@ -19,17 +19,17 @@ runs:
     - |
       set -e
       
+      # Update package list and install Python and pip3
+      apt-get update && apt-get install -y python3 python3-pip
+      
       # Debugging: List contents of root directory
       ls -l /
       
       # Copy entrypoint.sh from the GitHub repository to /entrypoint.sh inside the container
-      cp /github/workspace/entrypoint.sh /entrypoint.sh
+      cp entrypoint.sh /entrypoint.sh
       
       # Ensure entrypoint.sh has executable permissions
       chmod +x /entrypoint.sh
-      
-      # Debugging: Print entrypoint.sh content
-      cat /entrypoint.sh
       
       # Execute entrypoint.sh with the provided python_dependencies
       /entrypoint.sh "${{ inputs.python_dependencies }}"
