@@ -8,5 +8,4 @@ inputs:
 runs:
   using: 'docker'
   image: 'alpine:latest'
-  args:
-    - /workspace/entrypoint.sh  # Specify the script to run inside the container
+  
