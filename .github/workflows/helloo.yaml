@@ -13,4 +13,4 @@ jobs:
     - name: Run custom Docker action
       uses: ./
       with:
-        python_dependencies: 'pytest requests'
+        who-to-greet: ${{ github.event.inputs.who-to-greet }}
