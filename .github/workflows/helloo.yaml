@@ -2,19 +2,32 @@ name: Custom Action Workflow
 
 on:
   workflow_dispatch:
+    inputs:
+      who-to-greet:
+        description: 'Who to greet'
+        required: true
+        default: 'World'
 
 jobs:
-  run_custom_script:
+  custom_action_job:
     runs-on: self-hosted
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run custom Docker action
+      - name: Set up Docker
+        run: |
+          docker run -d --name my-container -v $(pwd):/workspace alpine:latest tail -f /dev/null
+
+      - name: Copy files to Docker container
+        run: |
+          docker cp entrypoint.sh my-container:/workspace/entrypoint.sh
+          docker exec my-container chmod +x /workspace/entrypoint.sh
+
+      - name: Execute Custom Docker Action
         uses: ./
         with:
           who-to-greet: ${{ github.event.inputs.who-to-greet }}
 
-      - name: Execute entrypoint.sh in Docker container
-        run: |
-          docker run -d -v $(pwd):/workspace -w /workspace docker:latest sh -c "cp ./entrypoint.sh /workspace/ && chmod +x /workspace/entrypoint.sh && sh /workspace/entrypoint.sh
+      - name: Clean up Docker container
+        run: docker rm -f my-container
