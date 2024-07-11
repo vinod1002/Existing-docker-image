@@ -2,12 +2,7 @@ name: Custom Action Workflow
 
 on:
   workflow_dispatch:
-    inputs:
-      who-to-greet:
-        description: 'Who to greet'
-        required: true
-        default: 'World'
-
+   
 jobs:
   custom_action_job:
     runs-on: self-hosted
