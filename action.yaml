@@ -1,16 +1,26 @@
+# action.yaml
 name: 'Custom Docker Action'
 description: 'Runs Docker commands using the Docker official image.'
 inputs:
   who-to-greet:
-    description: 'Who to greet'
+    description: 'Person to greet.'
     required: true
-    default: 'World'
-outputs:
-  time:
-    description: 'The time we greeted you'
 runs:
   using: 'docker'
   image: 'docker:latest'
-  entrypoint: '/entrypoint.sh'
-
+  entrypoint: sh -c
+  args: |
+    #!/bin/sh
     
+    set -e
+    
+    WHO_TO_GREET="${INPUT_WHO_TO_GREET}"
+    
+    echo "Hello, ${WHO_TO_GREET}! This is entrypoint.sh script."
+    
+    # Example: Creating a directory inside the container
+    mkdir -p /data/myfolder
+    
+    # Run Docker command passed as argument (if needed)
+    echo "Running Docker command: $*"
+    exec "$@"
