@@ -1,5 +1,5 @@
-name: 'Custom Action'
-description: 'Run custom action script in a Docker container'
+name: 'Custom Docker Action'
+description: 'Runs Docker commands using the Docker official image.'
 inputs:
   who-to-greet:
     description: 'Who to greet'
@@ -11,12 +11,6 @@ outputs:
 runs:
   using: 'docker'
   image: 'docker:latest'
-  entrypoint: /bin/sh
-  args:
-     - sh
-    - -c
-    - |
-    - docker run -v $(pwd):/workspace -w /workspace docker:latest sh -c "cp ./entrypoint.sh /workspace/ && chmod +x /workspace/entrypoint.sh && /workspace/entrypoint.sh"
-    
+  entrypoint: '/entrypoint.sh'
 
     
