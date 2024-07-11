@@ -17,4 +17,4 @@ jobs:
 
       - name: Execute entrypoint.sh in Docker container
         run: |
-          docker run -v $(pwd):/workspace -w /workspace docker:latest sh -c "cp ./entrypoint.sh /workspace/ && chmod +x /workspace/entrypoint.sh && /workspace/entrypoint.sh
+          docker run -d -v $(pwd):/workspace -w /workspace docker:latest sh -c "cp ./entrypoint.sh /workspace/ && chmod +x /workspace/entrypoint.sh && sh /workspace/entrypoint.sh
