@@ -20,8 +20,6 @@ jobs:
 
       - name: Run Custom Action
         uses: ./
-        with:
-          who-to-greet: ${{ github.event.inputs.who-to-greet }}
 
       - name: Set up Docker
         run: |
