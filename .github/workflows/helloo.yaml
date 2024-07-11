@@ -26,17 +26,11 @@ jobs:
           docker run -d -v $(pwd):/workspace alpine:latest tail -f /dev/null
           docker exec $(docker ps -lq) mkdir -p /workspace  # Ensure /workspace directory exists inside the container
 
-      - name: Display /workspace contents inside Docker container
-        run: docker exec $(docker ps -lq) ls -l /workspace
-
       - name: Copy entrypoint.sh to Docker container
         run: docker cp entrypoint.sh $(docker ps -lq):/workspace/entrypoint.sh
 
       - name: Set executable permissions for entrypoint.sh
         run: docker exec $(docker ps -lq) chmod +x /workspace/entrypoint.sh
-
-      - name: Debug List files in /workspace inside Docker container
-        run: docker exec $(docker ps -lq) ls -l /workspace
 
       - name: Execute Custom Docker Action
         run: docker exec $(docker ps -lq) sh /workspace/entrypoint.sh ${{ github.event.inputs.who-to-greet }}
