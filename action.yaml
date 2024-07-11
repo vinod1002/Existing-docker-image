@@ -8,19 +8,4 @@ inputs:
 runs:
   using: 'docker'
   image: 'docker:latest'
-  entrypoint: sh -c
-  args: |
-    #!/bin/sh
-    
-    set -e
-    
-    WHO_TO_GREET="${INPUT_WHO_TO_GREET}"
-    
-    echo "Hello, ${WHO_TO_GREET}! This is entrypoint.sh script."
-    
-    # Example: Creating a directory inside the container
-    mkdir -p /data/myfolder
-    
-    # Run Docker command passed as argument (if needed)
-    echo "Running Docker command: $*"
-    exec "$@"
+  
