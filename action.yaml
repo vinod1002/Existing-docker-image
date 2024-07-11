@@ -11,7 +11,8 @@ outputs:
 runs:
   using: 'docker'
   image: 'docker://docker:latest'
-  volumes:
-    - /github/workspace:/workspace
-  entrypoint: /bin/sh
-  command: -c "/workspace/entrypoint.sh '${{ inputs.who-to-greet }}'"
+  args:
+    - sh
+    - -c
+    - |
+      docker run -v $(pwd):/workspace -w /workspace docker://docker:latest sh -c "cp ./entrypoint.sh /workspace/ && chmod +x /workspace/entrypoint.sh && /workspace/entrypoint.sh '${{ inputs.who-to-greet }}'"
