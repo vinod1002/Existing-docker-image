@@ -1,16 +1,20 @@
-name: Run Custom Docker Action
+name: Custom Action Workflow
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  run_custom_script:
     runs-on: self-hosted
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Run custom Docker action
-      uses: ./
-      with:
-        who-to-greet: ${{ github.event.inputs.who-to-greet }}
+      - name: Run custom Docker action
+        uses: ./
+        with:
+          who-to-greet: ${{ github.event.inputs.who-to-greet }}
+
+      - name: Execute entrypoint.sh in Docker container
+        run: |
+          docker run -v $(pwd):/workspace -w /workspace docker:latest sh -c "cp ./entrypoint.sh /workspace/ && chmod +x /workspace/entrypoint.sh && /workspace/entrypoint.sh
