@@ -32,10 +32,11 @@ jobs:
       - name: Set executable permissions for entrypoint.sh
         run: docker exec $(docker ps -lq) chmod +x /workspace/entrypoint.sh
 
+      - name: Debug List files in /workspace inside Docker container
+        run: docker exec $(docker ps -lq) ls -l /workspace
+
       - name: Execute Custom Docker Action
-        uses: ./
-        with:
-          who-to-greet: ${{ github.event.inputs.who-to-greet }}
+        run: docker exec $(docker ps -lq) sh /workspace/entrypoint.sh ${{ github.event.inputs.who-to-greet }}
 
       - name: Clean up Docker container
         run: docker rm -f $(docker ps -lq)
