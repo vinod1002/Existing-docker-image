@@ -1,11 +1,12 @@
-# action.yaml
 name: 'Custom Docker Action'
-description: 'Runs Docker commands using the Docker official image.'
+description: 'A custom action using an Alpine Linux image with Docker installed to execute a script.'
 inputs:
   who-to-greet:
-    description: 'Person to greet.'
+    description: 'Who to greet'
     required: true
+    default: 'World'
 runs:
   using: 'docker'
-  image: 'docker:latest'
-  
+  image: 'alpine:latest'
+  args:
+    - /workspace/entrypoint.sh  # Specify the script to run inside the container
