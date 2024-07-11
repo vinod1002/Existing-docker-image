@@ -27,6 +27,15 @@ jobs:
         run: docker exec $(docker ps -lq) ls -l /workspace
 
       - name: Copy entrypoint.sh to Docker container
-        run: |
-          docker cp entrypoint.sh $(docker ps -lq):/workspace/entrypoint.sh
-          docker exec $(docker ps -lq) chmod +x /workspa
+        run: docker cp entrypoint.sh $(docker ps -lq):/workspace/entrypoint.sh
+
+      - name: Set executable permissions for entrypoint.sh
+        run: docker exec $(docker ps -lq) chmod +x /workspace/entrypoint.sh
+
+      - name: Execute Custom Docker Action
+        uses: ./
+        with:
+          who-to-greet: ${{ github.event.inputs.who-to-greet }}
+
+      - name: Clean up Docker container
+        run: docker rm -f $(docker ps -lq)
