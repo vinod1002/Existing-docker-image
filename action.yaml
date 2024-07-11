@@ -1,7 +1,17 @@
-name: 'My Docker Action'
-description: 'An example GitHub Action using a public Docker image as the runtime environment'
+name: 'Custom Action'
+description: 'Run custom action script in a Docker container'
+inputs:
+  who-to-greet:  # id of input
+    description: 'Who to greet'
+    required: true
+    default: 'World'
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
 runs:
   using: 'docker'
   image: 'docker://docker:latest'
-  args:
-    - ${{ github.workspace }}
+  volumes:
+    - /github/workspace:/workspace
+  entrypoint: /bin/sh
+  command: -c "/workspace/entrypoint.sh '${{ inputs.who-to-greet }}'"
