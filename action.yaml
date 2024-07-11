@@ -13,26 +13,10 @@ runs:
   image: 'docker:latest'
   entrypoint: /bin/sh
   args:
+     - sh
     - -c
     - |
-      name: 'Custom Action'
-description: 'Run custom action script in a Docker container'
-inputs:
-  who-to-greet:
-    description: 'Who to greet'
-    required: true
-    default: 'World'
-outputs:
-  time:
-    description: 'The time we greeted you'
-runs:
-  using: 'docker'
-  image: 'docker:latest'
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Set executable permission and run script
-      run: |
-        docker run -v $(pwd):/workspace -w /workspace docker:latest sh -c "chmod +x ./entrypoint.sh && ./entrypoint.sh '${{ inputs.who-to-greet }}'"
+    - docker run -v $(pwd):/workspace -w /workspace docker:latest sh -c "cp ./entrypoint.sh /workspace/ && chmod +x /workspace/entrypoint.sh && /workspace/entrypoint.sh"
+    
 
+    
