@@ -21,7 +21,7 @@ jobs:
 
       - name: Copy files to Docker container
         run: |
-          docker cp entrypoint.sh my-container:/workspace/entrypoint.sh
+          docker cp /entrypoint.sh my-container:/workspace/entrypoint.sh
           docker exec my-container chmod +x /workspace/entrypoint.sh
 
       - name: Execute Custom Docker Action
